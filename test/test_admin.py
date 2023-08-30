@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Type, Container
 
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 from django.db import models
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase
@@ -42,10 +42,8 @@ class TestAdmin(APITestCase):
 
     def test_task(self) -> None:
         manager = User.objects.create_user("manager", role=User.Roles.MANAGER)
-        tomorrow = datetime.now() + timedelta(1)
-        task = Task.objects.create(
-            author=manager, deadline_on=tomorrow.date(), priority=0
-        )
+        tomorrow = date.today() + timedelta(days=1)
+        task = Task.objects.create(author=manager, deadline_on=tomorrow, priority=0)
         self.assert_forms(Task, task.id)
 
     def test_user(self) -> None:
