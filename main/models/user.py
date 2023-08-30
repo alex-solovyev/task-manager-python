@@ -8,6 +8,8 @@ class User(AbstractUser):
         MANAGER = "manager"
         ADMIN = "admin"
 
+    date_of_birth = models.DateField(blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     role = models.CharField(
         max_length=10, default=Roles.DEVELOPER, choices=Roles.choices
     )
